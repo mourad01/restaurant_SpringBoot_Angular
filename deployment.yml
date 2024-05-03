@@ -43,8 +43,7 @@ metadata:
   name: restaurant-listing
 spec:
   ports:
-    - protocol: TCP
-      port: 9000
-      targetPort: 9000
-  selector:
-    app: restaurantapp
+    - protocol: "TCP"
+      port: 9000 # The port that the service is running on in the cluster
+      targetPort: 9000 # The port exposed by the service
+  type: NodePort
