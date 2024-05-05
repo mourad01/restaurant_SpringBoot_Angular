@@ -1,0 +1,23 @@
+services:
+  postgres_hibernate:
+    container_name: hibernate
+    image: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/hibernate
+    environment:
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_USER=sami
+      - POSTGRES_DB=sami
+    networks:
+      - my_network
+  restaurant_listing:
+    container_name: restaurant_listing_save
+    build: .
+    ports:
+      - 9000:9000
+    networks:
+      - my_network
+networks:
+  my_network:

@@ -20,22 +20,13 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 9000
-          # env:
-          #   - name: SPRING_DATASOURCE_USERNAME
-          #     valueFrom:
-          #       secretKeyRef:
-          #         name: secret
-          #         key: postgres-username
-          #   - name: SPRING_DATASOURCE_PASSWORD
-          #     valueFrom:
-          #       secretKeyRef:
-          #         name: secret
-          #         key: postgres-password
-          #   - name: SPRING_DATASOURCE_URL
-          #     valueFrom:
-          #       configMapKeyRef:
-          #         name: configmap
-          #         key: restaurantdb_url
+          env:
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "sami"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "123456"
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://postgres-hibernate:5432/sami"
 ---
 apiVersion: v1
 kind: Service
@@ -43,7 +34,9 @@ metadata:
   name: restaurant-listing
 spec:
   ports:
-    - protocol: "TCP"
-      port: 9000 # The port that the service is running on in the cluster
-      targetPort: 9000 # The port exposed by the service
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
+  selector:
+    app: restaurantapp
   type: NodePort
